@@ -38,7 +38,24 @@ jobs:
           python -m py_compile build_null_training.py
           python -m py_compile score_stim_vs_unstim.py
 
-      - name: Smoke test
+      - name: End-to-end test on toy data
         run: |
-          python build_null_training.py --help
-          python score_stim_vs_unstim.py --help
+          # Train null on toy replicate pairs
+          python build_null_training.py \
+            --data-dir examples/toy_null \
+            --out-dir results_null_training_ci
+
+          # Score STIM vs UNSTIM using the trained null
+          python score_stim_vs_unstim.py \
+            --unstim examples/toy_stim/unstim.tsv \
+            --stim examples/toy_stim/stim.tsv \
+            --null results_null_training_ci/null_training_per_clone.csv \
+            --out-dir results_stim_signature_ci \
+            --alpha 0.2 \
+            --min-stim-count 2 \
+            --min-log2fc 1.0
+
+          # Assert expected outputs exist
+          test -f results_null_training_ci/null_training_per_clone.csv
+          test -f results_stim_signature_ci/stim_signature_clones.csv
+
