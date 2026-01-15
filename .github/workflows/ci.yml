@@ -16,13 +16,13 @@ jobs:
 
     steps:
       - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Debug: show workspace
         run: |
           pwd
           ls -la
           find . -maxdepth 3 -type f -print
-
-        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
