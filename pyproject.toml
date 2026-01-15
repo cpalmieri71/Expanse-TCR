@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "expanse-tcr"
+version = "0.1.0"
+description = "Empirical detection of antigen-driven TCR clonotype expansions without technical replicates"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+
+authors = [
+  { name = "Claudio Palmieri" }
+]
+
+dependencies = [
+  "numpy",
+  "pandas"
+]
+
+[project.urls]
+Homepage = "https://github.com/cpalmieri71/Expanse-TCR"
+Repository = "https://github.com/cpalmieri71/Expanse-TCR"
+Issues = "https://github.com/cpalmieri71/Expanse-TCR/issues"
+
+[project.scripts]
+expanse-build-null = "expanse_tcr.build_null_training:main"
+expanse-score-stim = "expanse_tcr.score_stim_vs_unstim:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
