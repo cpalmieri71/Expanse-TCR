@@ -1,27 +1,19 @@
-name: CI
+nname: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
-    branches:
-      - main
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
-  smoke-test:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Debug list files
-        run: |
-          pwd
-          ls -la
-          find . -maxdepth 3 -type f -print
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -32,26 +24,25 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-            - name: Install package (pip install .) and check CLIs
+
+      - name: Syntax check (py_compile)
+        run: |
+          python -m py_compile src/expanse_tcr/build_null_training.py
+          python -m py_compile src/expanse_tcr/score_stim_vs_unstim.py
+
+      - name: Install package (pip install .) and check CLIs
         run: |
           pip install .
           expanse-build-null --help
           expanse-score-stim --help
 
-      - name: Syntax check
-        run: |
-          python -m py_compile build_null_training.py
-          python -m py_compile score_stim_vs_unstim.py
-
       - name: End-to-end test on toy data
         run: |
-          # Train null on toy replicate pairs
-          python build_null_training.py \
+          expanse-build-null \
             --data-dir examples/toy_null \
             --out-dir results_null_training_ci
 
-          # Score STIM vs UNSTIM using the trained null
-          python score_stim_vs_unstim.py \
+          expanse-score-stim \
             --unstim examples/toy_stim/unstim.tsv \
             --stim examples/toy_stim/stim.tsv \
             --null results_null_training_ci/null_training_per_clone.csv \
@@ -60,7 +51,5 @@ jobs:
             --min-stim-count 2 \
             --min-log2fc 1.0
 
-          # Assert expected outputs exist
           test -f results_null_training_ci/null_training_per_clone.csv
           test -f results_stim_signature_ci/stim_signature_clones.csv
-
