@@ -1,3 +1,5 @@
+![CI](https://github.com/cpalmieri71/Expanse-TCR/actions/workflows/ci.yml/badge.svg)
+
 # Expanse-TCR
 
 **Empirical detection of antigen-driven TCR clonotype expansions without technical replicates**
