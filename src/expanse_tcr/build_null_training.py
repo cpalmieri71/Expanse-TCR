@@ -214,7 +214,7 @@ def build_null_training(
     return null_out, qc_out, bins_out
 
 
-def main():
+def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--data-dir", type=Path, default=Path("repertori_longitudinali"))
     ap.add_argument("--out-dir", type=Path, default=Path("results_null_training"))

@@ -32,6 +32,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+            - name: Install package (pip install .) and check CLIs
+        run: |
+          pip install .
+          expanse-build-null --help
+          expanse-score-stim --help
 
       - name: Syntax check
         run: |

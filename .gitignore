@@ -11,3 +11,8 @@ venv/
 
 # Results / outputs
 results*/
+
+# Packaging / build artifacts
+build/
+dist/
+*.egg-info/
