@@ -55,3 +55,62 @@ QC metrics per training pair (depth, Jaccard, dispersion).
 null_log2FC_quantiles_by_freqbin.csv
 Frequency-binned null quantiles for diagnostics.
 
+# Examples
+
+This folder contains minimal examples and documentation of the expected input
+formats for **Expanse-TCR**.
+
+No large datasets are included in the repository. Users are encouraged to adapt
+these examples to their own RepSeq data.
+
+---
+
+## Expected repertoire format
+
+Each repertoire file must contain at least the following columns:
+
+- `aaSeqCDR3`  
+  Amino-acid CDR3 sequence (clonotype identifier)
+
+- `readCount`  
+  Number of sequencing reads assigned to the clonotype
+
+Optional:
+- `readFraction`  
+  Relative frequency of the clonotype (will be recomputed if present)
+
+Identical `aaSeqCDR3` entries are automatically collapsed and summed.
+
+---
+
+## File formats
+
+The pipeline supports:
+- TSV files (`.tsv`)
+- CSV files (`.csv`)
+- Files without extension (separator is auto-detected)
+
+---
+
+## Null training input (build_null_training.py)
+
+Null training requires multiple repertoire pairs where **no biological change**
+is expected (e.g. longitudinal samples, technical/biological replicates).
+
+Each pair must be named following this pattern:
+
+<subject><time>-1
+<subject><time>-2
+
+
+Example:
+1_1-1
+1_1-2
+1_2-1
+1_2-2
+
+Notes
+The method is empirical and frequency-dependent.
+Extremely rare clonotypes are more sensitive to sampling noise; use
+--min-stim-count, --min-unstim-count, and --min-log2fc to increase
+stringency.
