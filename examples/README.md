@@ -12,3 +12,7 @@ File formats:
 
 Null training expects replicate pairs named like:
   <subject>_<time>-1 and <subject>_<time>-2
+## Toy dataset included
+
+- `examples/toy_null/` contains small replicate pairs for null training
+- `examples/toy_stim/` contains a minimal UNSTIM/STIM example
