@@ -116,3 +116,16 @@ The method is empirical and frequency-dependent.
 Extremely rare clonotypes are more sensitive to sampling noise; use
 --min-stim-count, --min-unstim-count, and --min-log2fc to increase
 stringency.
+
+## Citation
+
+If you use Expanse-TCR, please cite:
+
+Abatino A. et al. *T Cell Receptor repertoire analysis reveals antigenic convergence and immunotherapeutic opportunities in Prostate Cancer*. medRxiv, 2026. MEDRXIV/2026/355376.
+
+This work describes the application of Expanse-TCR to TCR repertoire analysis in prostate cancer and illustrates its use for identifying antigen-driven clonotype enrichment and immunotherapeutic opportunities.
+
+## Funding
+
+This software was developed with the support of the Italian Ministry of Health under Research Project RF-2019-12370255:
+"Identification and validation of biomarkers to predict response to immunotherapy in endometrial cancer".
